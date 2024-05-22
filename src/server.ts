@@ -1,16 +1,25 @@
 import mongoose from "mongoose";
 import app from "./app";
+import config from "./config";
 
-main().catch(err => console.log(err));
+
+
+
 
 async function main() {
-  await mongoose.connect("mongodb+srv://azizulislam:1mlaKx6koxSxaccE@cluster0.1mqmchh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
-  const port = 300;
-  app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-  })
-  //azizulislam
-  //1mlaKx6koxSxaccE
+  
+  try {
+    
+    await mongoose.connect(config.db_url as string);
+    console.log(config.db_url);
+    app.listen(config.port, () => {
+      console.log(`Example app listening on port ${config.port}`)
+    });
+  }catch(err){
+    console.log(err);
+
+  }
+  
 
 }
 
